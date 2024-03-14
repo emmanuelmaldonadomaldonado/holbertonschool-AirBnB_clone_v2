@@ -115,7 +115,18 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, args):
-        """ Create an object of any class"""
+        """ 
+            Create an object of any class
+            Future use example...
+            Usage: create <classname> <att_name>=<"att_value">
+            Example: create State name="California" weather="Hot"
+            Possible idea is to make a dict of this and send it to update
+            after creating the object 
+        """
+        # Possible splits here to take <classname> <att_name>=<"att_value">
+        # split be white spaces and then check args with the attr=attrvalue
+        # Skip none valid arguments
+
         if not args:
             print("** class name missing **")
             return
@@ -123,6 +134,19 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         new_instance = HBNBCommand.classes[args]()
+
+        """ 
+            Possible change here to call update...
+            update State 
+            1ae80ffa-25b4-4e85-a813-570fcf01c116
+            {'name': "Texas", 'weather': "Hot"}
+            we can send to update a dictionary
+
+            split all args after name="california"
+            like name = "california"
+        
+        """
+
         storage.save()
         print(new_instance.id)
         storage.save()
@@ -235,7 +259,10 @@ class HBNBCommand(cmd.Cmd):
         print("Usage: count <class_name>")
 
     def do_update(self, args):
-        """ Updates a certain object with new info """
+        """ 
+            Updates a certain object with new info
+             Example: update <classname> <id> <attribute_name> <value> 
+        """
         class_name = id = att_name = att_val = kwargs = ''
 
         # isolate cls from id/args, ex: (<cls>, delim, <id/args>)
