@@ -115,41 +115,54 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, args):
-        """ 
+        """
             Create an object of any class
             Future use example...
             Usage: create <classname> <att_name>=<"att_value">
             Example: create State name="California" weather="Hot"
             Possible idea is to make a dict of this and send it to update
-            after creating the object 
+            after creating the object
         """
-        # Possible splits here to take <classname> <att_name>=<"att_value">
-        # split be white spaces and then check args with the attr=attrvalue
-        # Skip none valid arguments
 
         if not args:
             print("** class name missing **")
             return
-        elif args not in HBNBCommand.classes:
+
+        args = args.partition(" ")
+        if args[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        new_instance = HBNBCommand.classes[args]()
 
-        """ 
-            Possible change here to call update...
-            update State 
-            1ae80ffa-25b4-4e85-a813-570fcf01c116
-            {'name': "Texas", 'weather': "Hot"}
-            we can send to update a dictionary
+        new_instance = HBNBCommand.classes[args[0]]()
+        new_instance.save()
 
-            split all args after name="california"
-            like name = "california"
-        
-        """
+        if args[2]:
+            class_name = args[0]
+            id = new_instance.id
+            parameters = args[2]
+            parameters = parameters.split(" ")[:]
 
-        storage.save()
+            for parameter in parameters:
+                att_name = parameter.partition("=")[0]  # name
+                sign = parameter.partition("=")[1]  # =
+                att_value = parameter.partition("=")[2]  # "Antonio"
+
+                if sign and att_value:
+                    if att_value.startswith('\"') and\
+                            not att_value.endswith('\"'):
+                        pass
+
+                    elif not att_value.startswith('\"') and\
+                            att_value.endswith('\"'):
+                        pass
+
+                    else:
+                        att_value = att_value.replace('_', ' ')
+                        update_str = " ".join(
+                            [class_name, id, att_name, att_value])
+                        self.do_update(update_str)
+
         print(new_instance.id)
-        storage.save()
 
     def help_create(self):
         """ Help information for the create method """
@@ -259,9 +272,9 @@ class HBNBCommand(cmd.Cmd):
         print("Usage: count <class_name>")
 
     def do_update(self, args):
-        """ 
+        """
             Updates a certain object with new info
-             Example: update <classname> <id> <attribute_name> <value> 
+             Example: update <classname> <id> <attribute_name> <value>
         """
         class_name = id = att_name = att_val = kwargs = ''
 
