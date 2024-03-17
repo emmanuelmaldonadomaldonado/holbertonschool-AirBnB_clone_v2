@@ -124,6 +124,7 @@ class HBNBCommand(cmd.Cmd):
             after creating the object
         """
 
+        att_dict = {}
         if not args:
             print("** class name missing **")
             return
@@ -133,12 +134,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
 
-        new_instance = HBNBCommand.classes[args[0]]()
-        new_instance.save()
-
         if args[2]:
-            class_name = args[0]
-            id = new_instance.id
             parameters = args[2]
             parameters = parameters.split(" ")[:]
 
@@ -158,9 +154,10 @@ class HBNBCommand(cmd.Cmd):
 
                     else:
                         att_value = att_value.replace('_', ' ')
-                        update_str = " ".join(
-                            [class_name, id, att_name, att_value])
-                        self.do_update(update_str)
+                        att_dict[att_name] =  att_value
+            
+        new_instance = HBNBCommand.classes[args[0]](**att_dict)
+        new_instance.save()
 
         print(new_instance.id)
 
