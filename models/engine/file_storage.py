@@ -9,7 +9,10 @@ class FileStorage:
     __objects = {}
 
     def all(self, cls=None):
-        """Returns a dictionary of models currently in storage"""
+        """
+        Returns a dictionary of models currently in storage or...
+        Returns a dict of specified class
+        """
         if cls is None:
             return FileStorage.__objects
         else:
@@ -60,7 +63,7 @@ class FileStorage:
             pass
 
     def delete(self, obj=None):
-        """Deletes obj from __objects if it's inside"""
+        """Deletes obj from __objects"""
         if obj is not None:
             key = "{}.{}".format(type(obj).__name__, obj.id)
             del FileStorage.__objects[key]
