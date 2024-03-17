@@ -161,7 +161,6 @@ class HBNBCommand(cmd.Cmd):
                         update_str = " ".join(
                             [class_name, id, att_name, att_value])
                         self.do_update(update_str)
-
         print(new_instance.id)
 
     def help_create(self):
