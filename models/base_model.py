@@ -3,7 +3,7 @@
 import uuid
 from datetime import datetime
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, INTEGER, String
+from sqlalchemy import Column, INTEGER, String, DateTime
 
 
 Base = declarative_base()
@@ -18,13 +18,13 @@ class BaseModel:
         )
 
     created_at = Column(
-        datetime,
+        DateTime,
         nullable=False,
         default=datetime.utcnow()
         )
 
     updated_at = Column(
-        datetime,
+        DateTime,
         nullable=False,
         default=datetime.utcnow()
         )
