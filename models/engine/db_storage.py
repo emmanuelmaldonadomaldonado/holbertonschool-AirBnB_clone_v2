@@ -2,90 +2,94 @@
 """Engine for db"""
 
 
+from os import getenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
-from models.base_model import Base
-import os
-
+from models.base_model import Base, BaseModel
+from models.state import State
+from models.city import City
+from models.user import User
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 class DBStorage():
-    """
-        New Storage with SQL
-    """
     __engine = None
     __session = None
 
     def __init__(self):
-        db = os.getenv("HBNB_MYSQL_DB")
-        user = os.getenv("HBNB_MYSQL_USER")
-        passwd = os.getenv("HBNB_MYSQL_PWD")
-        host = os.getenv("HBNB_MYSQL_HOST")
-        env_name = os.getenv("HBNB_ENV")
 
-        self.__engine = create_engine(
-            f'mysql+mysqldb://{user}:{passwd}@{host}:3306/{db}',
-            pool_pre_ping=True
-            )
-        if env_name == "test":
-            Base.metadata.drop_all(self.__engine)
+        user = getenv("HBNB_MYSQL_USER")
+        psswd = getenv("HBNB_MYSQL_PWD")
+        host = getenv("HBNB_MYSQL_HOST")
+        db = getenv("HBNB_MYSQL_DB")
+        environ = getenv("HBNB_ENV")
+
+        engine = create_engine(f"mysql+mysqldb://{user}:{psswd}@{host}/{db}")
+        self.__engine = engine
+
+        if environ == "test":
+            Base.metadata.dropall(self.__engine)
 
     def all(self, cls=None):
-        """
-        Return dictionary of a class from the db
-        """
-        from models.base_model import BaseModel, Base
-        from models.state import State
-        from models.city import City
-        from models.user import User
-        from models.place import Place
-        from models.amenity import Amenity
-        from models.review import Review
-        
+        """Returns dict of current database"""
+        db_dict = {}
         classes = {
-            'BaseModel': BaseModel, 'User': User, 'Place': Place,
-            'State': State, 'City': City, 'Amenity': Amenity,
-            'Review': Review
+               'BaseModel': BaseModel, 'User': User, 'Place': Place,
+               'State': State, 'City': City, 'Amenity': Amenity,
+               'Review': Review
               }
-        dictionary = {}
-
-        if cls == None:
-            for class_name in classes:
-                result = self.__session.query(classes[class_name]).all()
-                dictionary[class_name] = result
-        else:
-            result = self.__session.query(cls).all()
-            dictionary[cls] = result
-
-        return dictionary
+        if cls:
+            for key in classes.keys():
+                if cls.__name__ == key:
+                    objects = (self.__session.query(classes[key]).all())
+                    obj_class = key
+                    break
+            for obj in objects:
+                id = obj.id
+                obj_key = '{}.{}'.format(obj_class, id)
+                db_dict[obj_key] = obj
+            return db_dict
+        all_objects = (self.__session.query
+                            (City, State, User, Place, Review, Amenity)
+                            .filter(City.state_id == State.id,
+                                    Place.user_id == User.id,
+                                    Place.city_id == City.id,
+                                    Review.place_id == Place.id,
+                                    Review.user_id == User.id).all())
+        for objs in all_objects:
+            for obj in range(0, len(objs)):
+                id = objs[obj].id
+                obj_key = '{}.{}'.format(objs[obj].__class__, id)
+                db_dict.update({obj_key: objs[obj]})
+        return db_dict
 
     def new(self, obj):
-        """
-            add the object to the current database session (self.__session)
-        """
-        self.__session.add(obj)
+        """Add new obj"""
+        if obj is not None:
+            self.__session.add(obj)
 
     def save(self):
-        """
-            commit all changes of the current database session
-        """
+        """Save and commit session"""
         self.__session.commit()
 
     def delete(self, obj=None):
-        """
-            delete from the current database session
-        """
+        """Delete obj"""
+        if obj is not None:
+            results = self.__session.query(State, City, Place, User).all()
+            for row in results:
+                if obj == row:
+                    self.__session.delete(row)
+                    break
+            self.save()
 
-        if obj:
-            self.__session.delete(obj)
-    
     def reload(self):
-        """
-            Create all tables in the database
-        """
-
+        """Reload, create all tables"""
         Base.metadata.create_all(self.__engine)
-
-        session_factory = sessionmaker(bind=self.__engine,
-                                       expire_on_commit=False)
+        session_factory = (sessionmaker(bind=self.__engine,
+                                        expire_on_commit=False))
         Session = scoped_session(session_factory)
         self.__session = Session()
+
+    def close(self):
+        self.__session.close()
