@@ -115,7 +115,7 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, args):
-        """ Create an object of any class"""
+        """Create an object of any class"""
         if not args:
             print("** class name missing **")
             return
@@ -142,7 +142,9 @@ class HBNBCommand(cmd.Cmd):
                 params_dict[key] = value
         new_instance = HBNBCommand.classes[class_nm](**params_dict)
         print(new_instance.id)
-        storage.save()
+        storage.new(new_instance)
+        storage.save()  # Commit changes to the database
+
 
     def help_create(self):
         """ Help information for the create method """
