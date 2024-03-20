@@ -2,24 +2,31 @@
 
 This repository contains the initial stage of a student project to build a clone of the AirBnB website. This stage implements a backend interface, or console, to manage program data. Console commands allow the user to create, update, and destroy objects, as well as manage file storage. Using a system of JSON serialization/deserialization, storage is persistent between sessions.
 
-UPDATE: Dbstorage has been implemented with ORM via SQLALCHEMY. The Console can now interact with either **file_storage.py** or **db_storage.py**. This duality allows to save data locally to a JSON file or to the database depending on the enviroment variable **HBNB_TYPE_STORAGE**('db' or 'file'). All classes for the models have been mapped and established relationships with them. This allows to handle properly the cases where a cetrain row maybe deleted from the data base and manage properly the deletes that should follow in case of ciertain relationships.
+## UPDATES
 
-# Important Updates
+The storage system has been implemented with ORM using SQLAlchemy. The console can now interact with either **file_storage.py** or **db_storage.py**. This duality enables data to be saved locally to a JSON file or to the database, depending on the value of the environment variable `HBNB_TYPE_STORAGE ('db' or 'file')`. All classes for the models have been mapped and relationships between them established. This ensures proper handling of cases where a certain row may be deleted from the database and manages deletions that should follow in case of certain relationships.
 
-Major changes in the do_create method from the console. A dictionary is being sent to the specified class to create new objects.
+###### Example : Create an object for db
+Usage: create <class_name> <par="value"> <par=value> <par=value>
 ```
-/* for dbs storage */
-
 (hbnb) create State name="california"
 3aa5babc-efb6-4041-bfe9-3cc9727588f8
 (hbnb) all
-["[State] (001) {'_sa_instance_state': <sqlalchemy.orm.state.InstanceState object at 0x000002677FF8C400>, 'updated_at': datetime.datetime(2024, 3, 20, 0, 44, 6),
+["[State] (3aa5babc-efb6-4041-bfe9-3cc9727588f8) {'_sa_instance_state': <sqlalchemy.orm.state.InstanceState object at 0x000002677FF8C400>, 'updated_at': datetime.datetime(2024, 3, 20, 0, 44, 6),
 'name': 'Arizona', 'id': '3aa5babc-efb6-4041-bfe9-3cc9727588f8', 'created_at': datetime.datetime(2024, 3, 20, 0, 44, 6)}"]
 (hbnb) quit
 
 
 ```
+###### Example: Show all objects for db
+Usage: all <class_name> or all
+```
+(hbnb) all
+["[State] (3aa5babc-efb6-4041-bfe9-3cc9727588f8) {'_sa_instance_state': <sqlalchemy.orm.state.InstanceState object at 0x000002677FF8C400>, 'updated_at': datetime.datetime(2024, 3, 20, 0, 44, 6),
+'name': 'Arizona', 'id': '3aa5babc-efb6-4041-bfe9-3cc9727588f8', 'created_at': datetime.datetime(2024, 3, 20, 0, 44, 6)}"]
+(hbnb) quit
 
+```
 
 ---
 
