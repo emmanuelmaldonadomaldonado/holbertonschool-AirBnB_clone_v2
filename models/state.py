@@ -7,6 +7,7 @@ from os import getenv
 from models.city import City
 import models
 
+
 class State(BaseModel, Base):
     """
     State class representing a geographical state.

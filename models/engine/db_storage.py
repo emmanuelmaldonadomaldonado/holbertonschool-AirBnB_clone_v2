@@ -1,7 +1,5 @@
 #!/usr/bin/python3
 """Engine for db"""
-
-
 from os import getenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
@@ -12,6 +10,7 @@ from models.user import User
 from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
+
 
 class DBStorage():
     __engine = None
@@ -50,13 +49,14 @@ class DBStorage():
                 obj_key = '{}.{}'.format(obj_class, id)
                 db_dict[obj_key] = obj
             return db_dict
-        all_objects = (self.__session.query
-                            (City, State, User, Place, Review, Amenity)
-                            .filter(City.state_id == State.id,
-                                    Place.user_id == User.id,
-                                    Place.city_id == City.id,
-                                    Review.place_id == Place.id,
-                                    Review.user_id == User.id).all())
+        all_objects = (self.__session.query(City, State, User,
+                                            Place, Review, Amenity).filter(
+                                            City.state_id == State.id,
+                                            Place.user_id == User.id,
+                                            Place.city_id == City.id,
+                                            Review.place_id == Place.id,
+                                            Review.user_id == User.id).all())
+
         for objs in all_objects:
             for obj in range(0, len(objs)):
                 id = objs[obj].id

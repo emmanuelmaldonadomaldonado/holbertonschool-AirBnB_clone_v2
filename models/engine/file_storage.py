@@ -13,7 +13,7 @@ class FileStorage:
         if cls is None:
             return FileStorage.__objects
         else:
-            return {key: obj for key, obj in FileStorage.__objects.items()\
+            return {key: obj for key, obj in FileStorage.__objects.items()
                     if isinstance(obj, cls)}
 
     def new(self, obj):
