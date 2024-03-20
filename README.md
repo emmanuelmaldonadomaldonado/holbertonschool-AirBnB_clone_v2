@@ -2,7 +2,8 @@
 
 This repository contains the initial stage of a student project to build a clone of the AirBnB website. This stage implements a backend interface, or console, to manage program data. Console commands allow the user to create, update, and destroy objects, as well as manage file storage. Using a system of JSON serialization/deserialization, storage is persistent between sessions.
 
-UPDATE: From here authors Antoniofdjs and Emmanuelmaldonadomaldonado
+UPDATE: Dbstorage has been implemented with ORM via SQLALCHEMY. The Console can now interact with either **file_storage.py** or **db_storage.py**. This duality allows to save data locally to a JSON file or to the database depending on the enviroment variable **HBNB_TYPE_STORAGE**('db' or 'file'). All classes for the models have been mapped and established relationships with them. This allows handle properly the cases where a cetrain row maybe deleted from the data base and manage properly the deletes that should follow in case of ciertain relationships.
+
 
 ---
 
