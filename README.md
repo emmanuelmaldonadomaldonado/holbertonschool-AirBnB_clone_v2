@@ -1,6 +1,8 @@
 <center> <h1>HBNB - The Console</h1> </center>
 
-This repository contains the initial stage of a student project to build a clone of the AirBnB website. This stage implements a backend interface, or console, to manage program data. Console commands allow the user to create, update, and destroy objects, as well as manage file storage. Using a system of JSON serialization/deserialization, storage is persistent between sessions. [ORIGINAL CLONE AUTHORS](https://github.com/justinmajetich/AirBnB_clone)
+This repository contains the initial stage of a student project to build a clone of the AirBnB website. This stage implements a backend interface, or console, to manage program data. Console commands allow the user to create, update, and destroy objects, as well as manage file storage. Using a system of JSON serialization/deserialization, storage is persistent between sessions. [ORIGINAL CLONE AUTHORS](https://github.com/justinmajetich/AirBnB_clone) Click here to view the original console version.
+
+The *UPDATES* section contains all the major changes made to the console that involve implementing the new database (db) using sqlalchemy as the ORM and MySQL as our database.
 
 ## UPDATES
 
@@ -41,7 +43,6 @@ Usage: all <class_name> or all
 | 4. Console | [console.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/console.py) | Update the console with methods allowing the user to create, destroy, show, and update stored data |
 | 5. Console Updated DB | [console.py](https://github.com/Antoniofdjs/holbertonschool-AirBnB_clone_v2/blob/master/console.py)|   Update the console with methods allowing the user to create, destroy, show, and update stored data |                                                                           |      |
 | 6. Classes | [/models/user.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/user.py) [/models/place.py](https://github.com/Antoniofdjs/holbertonschool-AirBnB_clone_v2/blob/master/models/place.py) [/models/city.py](https://github.com/Antoniofdjs/holbertonschool-AirBnB_clone_v2/blob/master/models/city.py) [/models/amenity.py](https://github.com/Antoniofdjs/holbertonschool-AirBnB_clone_v2/blob/master/models/amenity.py) [/models/state.py](https://github.com/Antoniofdjs/holbertonschool-AirBnB_clone_v2/blob/master/models/state.py) [/models/review.py](https://github.com/Antoniofdjs/holbertonschool-AirBnB_clone_v2/blob/master/models/review.py) | Dynamically implements more classes |
-| 7. Console 1.0 | [console.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/console.py) [/models/engine/file_storage.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/engine/file_storage.py) | Update the console and file storage system to work dynamically with all  classes update file storage |
 <br>
 <br>
 <center> <h2>General Use</h2> </center>
