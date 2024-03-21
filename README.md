@@ -2,7 +2,25 @@
 
 This repository contains the initial stage of a student project to build a clone of the AirBnB website. This stage implements a backend interface, or console, to manage program data. Console commands allow the user to create, update, and destroy objects, as well as manage file storage. Using a system of JSON serialization/deserialization, storage is persistent between sessions. [ORIGINAL CLONE AUTHORS](https://github.com/justinmajetich/AirBnB_clone) Click here to view the original console version.
 
-The *UPDATES* section contains all the major changes made to the console that involve implementing the new database (db) using sqlalchemy as the ORM and MySQL as our database.
+The *UPDATES* section contains all the major changes made to the console that involve implementing the new database (db) using sqlalchemy as the ORM and MySQL as our database. For the new usage of the project you will need some enviroment variables first.
+
+| env_var | value |
+| ----- | ----- |
+| HBNB_MYSQL_DB| <db_name>|
+| HBNB_MYSQL_USER| <db_user>|
+| HBNB_MYSQL_PWD| <db_password>|
+|HBNB_MYSQL_HOST | <host_for_db>|
+|HBNB_TYPE_STORAGE| <'file'> for local and <'db'> for database|
+| HBNB_ENV| for development <'dev'> or for testing <'test'>|
+
+Important to replace the values of these env_var with yours. HBNB_TYPE_STORAGE will be either 'file' if you want to use the local storage or 'db' for the database'.
+HBNB_ENV will be 'dev' for development or 'test' to make tests with another database for testing. Make sure to have 2 databases, one for development and one for testing.
+
+
+
+
+
+
 
 ## UPDATES
 
