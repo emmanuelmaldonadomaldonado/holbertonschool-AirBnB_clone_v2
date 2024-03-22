@@ -1,26 +1,66 @@
 <center> <h1>HBNB - The Console</h1> </center>
 
-This repository contains the initial stage of a student project to build a clone of the AirBnB website. This stage implements a backend interface, or console, to manage program data. Console commands allow the user to create, update, and destroy objects, as well as manage file storage. Using a system of JSON serialization/deserialization, storage is persistent between sessions.
+This repository contains the initial stage of a student project to build a clone of the AirBnB website. This stage implements a backend interface, or console, to manage program data. Console commands allow the user to create, update, and destroy objects, as well as manage file storage. Using a system of JSON serialization/deserialization, storage is persistent between sessions. [ORIGINAL CLONE AUTHORS](https://github.com/justinmajetich/AirBnB_clone) Click here to view the original console version.
 
-UPDATE: From here authors Antoniofdjs and Emmanuelmaldonadomaldonado
+The *UPDATES* section contains all the major changes made to the console that involve implementing the new database (db) using sqlalchemy as the ORM and MySQL as our database. For the new usage of the project you will need some enviroment variables first.
+
+| env_var | value |
+| ----- | ----- |
+| HBNB_MYSQL_DB| <db_name>|
+| HBNB_MYSQL_USER| <db_user>|
+| HBNB_MYSQL_PWD| <db_password>|
+|HBNB_MYSQL_HOST | <host_for_db>|
+|HBNB_TYPE_STORAGE| <'file'> for local and <'db'> for database|
+| HBNB_ENV| for development <'dev'> or for testing <'test'>|
+
+Important to replace the values of these env_var with yours. HBNB_TYPE_STORAGE will be either 'file' if you want to use the local storage or 'db' for the database'.
+HBNB_ENV will be 'dev' for development or 'test' to make tests with another database for testing. Make sure to have 2 databases, one for development and one for testing.
+
+
+
+
+
+
+
+## UPDATES
+
+The storage system has been implemented with ORM using SQLAlchemy. The console can now interact with either **file_storage.py** or **db_storage.py**. This duality enables data to be saved locally to a JSON file or to the database, depending on the value of the environment variable `HBNB_TYPE_STORAGE ('db' or 'file')`. All classes for the models have been mapped and relationships between them established. This ensures proper handling of cases where a certain row may be deleted from the database and manages deletions that should follow in case of certain relationships. The basemodel was modified to now be able to create the columns for our tables, also our *init.py* in models has a switch to be able to chnage from database or local usage. Refer to this modules to see more documentation.
+
+###### Example : Create an object for db
+Usage: create <class_name> <par="value"> <par=value> <par=value>
+```
+(hbnb) create State name="california"
+3aa5babc-efb6-4041-bfe9-3cc9727588f8
+(hbnb) all
+["[State] (3aa5babc-efb6-4041-bfe9-3cc9727588f8) {'_sa_instance_state': <sqlalchemy.orm.state.InstanceState object at 0x000002677FF8C400>, 'updated_at': datetime.datetime(2024, 3, 20, 0, 44, 6),
+'name': 'Arizona', 'id': '3aa5babc-efb6-4041-bfe9-3cc9727588f8', 'created_at': datetime.datetime(2024, 3, 20, 0, 44, 6)}"]
+(hbnb) quit
+
+
+```
+###### Example: Show all objects for db
+Usage: all <class_name> or all
+```
+(hbnb) all
+["[State] (3aa5babc-efb6-4041-bfe9-3cc9727588f8) {'_sa_instance_state': <sqlalchemy.orm.state.InstanceState object at 0x000002677FF8C400>, 'updated_at': datetime.datetime(2024, 3, 20, 0, 44, 6),
+'name': 'Arizona', 'id': '3aa5babc-efb6-4041-bfe9-3cc9727588f8', 'created_at': datetime.datetime(2024, 3, 20, 0, 44, 6)}"]
+(hbnb) quit
+
+```
 
 ---
 
-<center><h3>Repository Contents by Project Task</h3> </center>
+<center><h3>Repository Contents by Project Versions</h3> </center>
 
 | Tasks | Files | Description |
 | ----- | ----- | ------ |
 | 0: Authors/README File | [AUTHORS](https://github.com/justinmajetich/AirBnB_clone/blob/dev/AUTHORS) | Project authors |
-| 1: Pep8 | N/A | All code is pep8 compliant|
-| 2: Unit Testing | [/tests](https://github.com/justinmajetich/AirBnB_clone/tree/dev/tests) | All class-defining modules are unittested |
-| 3. Make BaseModel | [/models/base_model.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/base_model.py) | Defines a parent class to be inherited by all model classes|
-| 4. Update BaseModel w/ kwargs | [/models/base_model.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/base_model.py) | Add functionality to recreate an instance of a class from a dictionary representation|
-| 5. Create FileStorage class | [/models/engine/file_storage.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/engine/file_storage.py) [/models/_ _init_ _.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/__init__.py) [/models/base_model.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/base_model.py) | Defines a class to manage persistent file storage system|
-| 6. Console 0.0.1 | [console.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/console.py) | Add basic functionality to console program, allowing it to quit, handle empty lines and ^D |
-| 7. Console 0.1 | [console.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/console.py) | Update the console with methods allowing the user to create, destroy, show, and update stored data |
-| 8. Create User class | [console.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/console.py) [/models/engine/file_storage.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/engine/file_storage.py) [/models/user.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/user.py) | Dynamically implements a user class |
-| 9. More Classes | [/models/user.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/user.py) [/models/place.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/place.py) [/models/city.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/city.py) [/models/amenity.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/amenity.py) [/models/state.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/state.py) [/models/review.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/review.py) | Dynamically implements more classes |
-| 10. Console 1.0 | [console.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/console.py) [/models/engine/file_storage.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/engine/file_storage.py) | Update the console and file storage system to work dynamically with all  classes update file storage |
+| 1: Unit Testing | [/tests](https://github.com/Antoniofdjs/holbertonschool-AirBnB_clone_v2/tree/master/tests) | Unitests for models and storage |
+| 2. Updated BaseModel w/ kwargs | [/models/base_model.py](https://github.com/Antoniofdjs/holbertonschool-AirBnB_clone_v2/blob/master/models/base_model.py) | Functionality to recreate an instance of a class from .json or db. Also serves as super class for other classes|
+| 3. FileStorage class | [/models/engine/file_storage.py](https://github.com/Antoniofdjs/holbertonschool-AirBnB_clone_v2/blob/master/models/engine/file_storage.py) [/models/_ _init_ _.py](https://github.com/Antoniofdjs/holbertonschool-AirBnB_clone_v2/blob/master/models/__init__.py) [/models/base_model.py](https://github.com/Antoniofdjs/holbertonschool-AirBnB_clone_v2/blob/master/models/base_model.py) [/models/engine/db_storage.py](https://github.com/Antoniofdjs/holbertonschool-AirBnB_clone_v2/blob/master/models/engine/db_storage.py)| Defines a class to manage persistent file storage system |
+| 4. Old Console | [console.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/console.py) | Update the console with methods allowing the user to create, destroy, show, and update stored data |
+| 5. Console Updated DB | [console.py](https://github.com/Antoniofdjs/holbertonschool-AirBnB_clone_v2/blob/master/console.py)|   Update the console with switch for dbstorage and local using .JSON|                                                      
+| 6. Classes | [/models/user.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/user.py) [/models/place.py](https://github.com/Antoniofdjs/holbertonschool-AirBnB_clone_v2/blob/master/models/place.py) [/models/city.py](https://github.com/Antoniofdjs/holbertonschool-AirBnB_clone_v2/blob/master/models/city.py) [/models/amenity.py](https://github.com/Antoniofdjs/holbertonschool-AirBnB_clone_v2/blob/master/models/amenity.py) [/models/state.py](https://github.com/Antoniofdjs/holbertonschool-AirBnB_clone_v2/blob/master/models/state.py) [/models/review.py](https://github.com/Antoniofdjs/holbertonschool-AirBnB_clone_v2/blob/master/models/review.py) | Classes|
 <br>
 <br>
 <center> <h2>General Use</h2> </center>
