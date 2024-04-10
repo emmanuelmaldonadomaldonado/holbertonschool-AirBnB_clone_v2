@@ -30,11 +30,11 @@ def hello_4(n):
 
 @app.route("/number_template/<int:n>", strict_slashes=False)
 def hello_5(n):
-    return render_template('5-number.html', num=n)
+    return render_template('5-number.html', n=n)
 
 @app.route("/number_odd_or_even/<int:n>", strict_slashes=False)
 def hello_6(n):
-    return render_template('6-number_odd_or_even.html', num=n)
+    return render_template('6-number_odd_or_even.html', n=n)
 
 
     
