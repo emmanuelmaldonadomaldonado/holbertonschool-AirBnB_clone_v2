@@ -24,7 +24,6 @@ def hello_2(text):
 def hello_3(text='is cool'):
     return 'Python ' + text.replace('_', ' ')
 
-@app.route('/number', strict_slashes=False)
 @app.route("/number/<int:n>", strict_slashes=False)
 def hello_4(n):
     return "{} is a number".format(n)
