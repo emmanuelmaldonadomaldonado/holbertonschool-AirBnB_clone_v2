@@ -11,13 +11,16 @@ app = Flask(__name__)
 def hello():
     return 'Hello HBNB!'
 
+
 @app.route('/hbnb', strict_slashes=False)
 def hello_1():
     return 'HBNB'
 
+
 @app.route('/c/<text>', strict_slashes=False)
 def hello_2(text):
     return 'C ' + text.replace('_', ' ')
+
 
 @app.route('/python', strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)

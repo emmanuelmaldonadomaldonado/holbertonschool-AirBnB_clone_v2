@@ -11,6 +11,7 @@ app = Flask(__name__)
 def hello():
     return 'Hello HBNB!'
 
+
 @app.route('/hbnb', strict_slashes=False)
 def hello_2():
     return 'HBNB'
