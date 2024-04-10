@@ -22,9 +22,9 @@ def hello_2(text):
     return 'C ' + text.replace('_', ' ')
 
 
-@app.route('/python', strict_slashes=False)
+@app.route('/python', defaults={'text': 'is cool'}, strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
-def hello_3(text='is cool'):
+def hello_3(text):
     return 'Python ' + text.replace('_', ' ')
 
 
@@ -35,10 +35,7 @@ def hello_4(n):
 
 @app.route("/number_template/<int:n>", strict_slashes=False)
 def hello_5(n):
-    num = {
-        'n': n
-    }
-    return render_template('5-number.html', **num)
+    return render_template("5-number.html", n=n)
 
 
 if __name__ == '__main__':

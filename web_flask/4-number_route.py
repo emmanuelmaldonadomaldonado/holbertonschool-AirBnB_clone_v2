@@ -2,7 +2,7 @@
 
 """script that starts a Flask web application"""
 
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
@@ -22,14 +22,14 @@ def hello_2(text):
     return 'C ' + text.replace('_', ' ')
 
 
-@app.route('/python', strict_slashes=False)
+@app.route('/python', defaults={'text': 'is cool'}, strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
-def hello_3(text='is cool'):
+def hello_3(text):
     return 'Python ' + text.replace('_', ' ')
 
 
 @app.route("/number/<int:n>", strict_slashes=False)
-def hello_route_v4(n):
+def hello_4(n):
     return "{} is a number".format(n)
 
 
