@@ -30,7 +30,7 @@ def hello_4(n):
 
 @app.route("/number_template/<int:n>", strict_slashes=False)
 def hello_5(n):
-    return render_template('5-number.html', num=n)
+    return render_template('5-number.html', n=n)
 
 
     
